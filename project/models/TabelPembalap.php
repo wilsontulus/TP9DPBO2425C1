@@ -11,15 +11,20 @@ class TabelPembalap extends DB implements KontrakModel {
     }
 
     // Method untuk mendapatkan semua pembalap
-    public function getAllPembalap(): array {
-        $query = "SELECT * FROM pembalap";
+    public function getAllData(): array {
+        $query = "SELECT pembalap.id, pembalap.nama, pembalap.tim_id, tim.nama AS tim_nama, pembalap.negara, pembalap.poinMusim, pembalap.jumlahMenang 
+                  FROM pembalap
+                  INNER JOIN tim ON pembalap.tim_id = tim.id";
         $this->executeQuery($query);
         return $this->getAllResult();
     }
 
     // Method untuk mendapatkan pembalap berdasarkan ID
-    public function getPembalapById($id): ?array {
-        $query = "SELECT * FROM pembalap WHERE id = :id";
+    public function getDataById($id): ?array {
+        $query = "SELECT pembalap.id, pembalap.nama, pembalap.tim_id, tim.nama AS tim_nama, pembalap.negara, pembalap.poinMusim, pembalap.jumlahMenang 
+                  FROM pembalap
+                  INNER JOIN tim ON pembalap.tim_id = tim.id
+                  WHERE pembalap.id = :id";
         $params = ['id' => $id];
         $this->executeQuery($query, $params);
         return $this->getSingleResult();
@@ -27,19 +32,19 @@ class TabelPembalap extends DB implements KontrakModel {
 
     // Metode CUD (Create Update Delete)
 
-    public function addPembalap($nama, $tim, $negara, $poinMusim, $jumlahMenang): void {
+    public function addData($data = []): void {
         $query = "INSERT INTO pembalap (nama, tim, negara, poinMusim, jumlahMenang) VALUES (:nama, :tim, :negara, :poinMusim, :jumlahMenang)";
-        $params = ['nama' => $nama, 'tim' => $tim, 'negara' => $negara, 'poinMusim' => $poinMusim, 'jumlahMenang' => $jumlahMenang];
+        $params = ['nama' => $data['nama'], 'tim' => $data['tim'], 'negara' => $data['negara'], 'poinMusim' => $data['poinMusim'], 'jumlahMenang' => $data['jumlahMenang']];
         $this->executeQuery($query, $params);
     }
     
-    public function updatePembalap($id, $nama, $tim, $negara, $poinMusim, $jumlahMenang): void {
-        $query = "UPDATE pembalap SET nama = :nama, tim = :tim, negara = :negara, poinMusim = :poinMusim, jumlahMenang = :jumlahMenang WHERE id = :id";
-        $params = ['nama' => $nama, 'tim' => $tim, 'negara' => $negara, 'poinMusim' => $poinMusim, 'jumlahMenang' => $jumlahMenang, 'id' => $id];
+    public function updateData($id, $data = []): void {
+        $query = "UPDATE pembalap SET nama = :nama, tim_id = :tim_id, negara = :negara, poinMusim = :poinMusim, jumlahMenang = :jumlahMenang WHERE id = :id";
+        $params = ['nama' => $data['nama'], 'tim_id' => $data['tim_id'], 'negara' => $data['negara'], 'poinMusim' => $data['poinMusim'], 'jumlahMenang' => $data['jumlahMenang'], 'id' => $id];
         $this->executeQuery($query, $params);
     }
     
-    public function deletePembalap($id): void {
+    public function deleteData($id): void {
         $query = "DELETE FROM pembalap WHERE id = :id";
         $params = ['id' => $id];
         $this->executeQuery($query, $params);

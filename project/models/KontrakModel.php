@@ -18,14 +18,16 @@
 
 interface KontrakModel
 {
-    public function getAllPembalap(): array;
-    public function getPembalapById($id): ?array;
+    public function getAllData(): array;
+    public function getDataById($id): ?array;
 
     
     // method crud pembalap
-    public function addPembalap($nama, $tim, $negara, $poinMusim, $jumlahMenang): void;
-    public function updatePembalap($id, $nama, $tim, $negara, $poinMusim, $jumlahMenang): void;
-    public function deletePembalap($id): void;
+    public function addData($data = []): void;
+    public function updateData($id, $data = []): void;
+    public function deleteData($id): void;
+
+
 }
 
 ?>

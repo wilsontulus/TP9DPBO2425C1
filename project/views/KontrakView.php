@@ -2,8 +2,8 @@
 
 interface KontrakView
 {
-    public function tampilPembalap($listPembalap): string;
-    public function tampilFormPembalap($data = null): string;
+    public function tampilList($list): string;
+    public function tampilForm($data = null): string;
 }
 
 ?>

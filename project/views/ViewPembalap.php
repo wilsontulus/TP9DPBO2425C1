@@ -1,16 +1,15 @@
 <?php
 
 include_once ("KontrakView.php");
-include_once ("models/Pembalap.php");
 
-class ViewPembalap implements KontrakView{
+class ViewPembalap implements KontrakView {
 
     public function __construct(){
         // Konstruktor kosong
     }
 
     // Method untuk menampilkan daftar pembalap
-    public function tampilPembalap($listPembalap): string {
+    public function tampilList($listPembalap): string {
         // Build table rows
         $tbody = '';
         $no = 1;
@@ -31,7 +30,7 @@ class ViewPembalap implements KontrakView{
         }
 
         // Load the page template and inject rows + total count
-        $templatePath = __DIR__ . '/../template/skin.html';
+        $templatePath = __DIR__ . '/../template/listPembalap.html';
         $template = '';
         if (file_exists($templatePath)) {
             $template = file_get_contents($templatePath);
@@ -46,18 +45,31 @@ class ViewPembalap implements KontrakView{
     }
 
     // Method untuk menampilkan form tambah/ubah pembalap
-    public function tampilFormPembalap($data = null): string {
-        $template = file_get_contents(__DIR__ . '/../template/form.html');
+    public function tampilForm($data = null, $listTim = []): string {
+        // Dapatkan list tim
+        $template = file_get_contents(__DIR__ . '/../template/formPembalap.html');
+        $timOptions = "";
+
+        foreach ($listTim as $tim):
+            $isselString = "";
+            if ($data && $data['tim_id'] == $tim->getId()) {
+                $isselString = "selected";
+            }
+            $timOptions .= "<option value=\"" . $tim->getId() . "\" $isselString > " . $tim->getNama() . " </option>";
+        endforeach;
+
         if ($data) {
-            echo sizeof($data);
             $template = str_replace('value="add" id="pembalap-action"', 'value="edit" id="pembalap-action"', $template);
             $template = str_replace('value="" id="pembalap-id"', 'value="' . htmlspecialchars($data['id']) . '" id="pembalap-id"', $template);
             $template = str_replace('id="nama" name="nama" type="text" placeholder="Nama pembalap"', 'id="nama" name="nama" type="text" placeholder="Nama pembalap" value="' . htmlspecialchars($data['nama']) . '"', $template);
-            $template = str_replace('id="tim" name="tim" type="text" placeholder="Nama tim"', 'id="tim" name="tim" type="text" placeholder="Nama tim" value="' . htmlspecialchars($data['tim']) . '"', $template);
+            
             $template = str_replace('id="negara" name="negara" type="text" placeholder="Negara (mis. Indonesia)"', 'id="negara" name="negara" type="text" placeholder="Negara (mis. Indonesia)" value="' . htmlspecialchars($data['negara']) . '"', $template);
             $template = str_replace('id="poinMusim" name="poinMusim" type="number" min="0" step="1" placeholder="0"', 'id="poinMusim" name="poinMusim" type="number" min="0" step="1" placeholder="0" value="' . htmlspecialchars($data['poinMusim']) . '"', $template);
             $template = str_replace('id="jumlahMenang" name="jumlahMenang" type="number" min="0" step="1" placeholder="0"', 'id="jumlahMenang" name="jumlahMenang" type="number" min="0" step="1" placeholder="0" value="' . htmlspecialchars($data['jumlahMenang']) . '"', $template);
         }
+
+        $template = str_replace('LIST_TIM_HERE', $timOptions, $template);
+        
         return $template;
     }
 }
