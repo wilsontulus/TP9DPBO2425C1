@@ -10,7 +10,7 @@ Aamiin.
 
 ## Desain program
 
-Program ini merupakan program CRUD berbasis antarmuka web dengan arsitektur Model-View-Presenter (MVP) berbasis PHP dengan sistem basis data PHP Data Objects untuk mengelola data pembalap dan (TODO: insert related entity/table)
+Program ini merupakan program CRUD berbasis antarmuka web dengan arsitektur Model-View-Presenter (MVP) berbasis PHP dengan sistem basis data PHP Data Objects untuk mengelola data pembalap dan tim yang digunakan para pembalap.
 
 ### Diagram UML (Basis Data):
 

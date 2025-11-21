@@ -27,7 +27,7 @@ interface KontrakPresenter
 
 
     // method untuk CRUD pembalap
-    public function tambahData($nama, $tim, $negara, $poinMusim, $jumlahMenang): void;
-    public function ubahData($id, $nama, $tim, $negara, $poinMusim, $jumlahMenang): void;
+    public function tambahData($data = []): void;
+    public function ubahData($id, $data = []): void;
     public function hapusData($id): void;
 }

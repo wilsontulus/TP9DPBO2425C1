@@ -84,25 +84,11 @@ class PresenterPembalap implements KontrakPresenter
 
     // implementasikan metode
 
-    public function tambahData($nama, $tim_id, $negara, $poinMusim, $jumlahMenang): void {
-        $data = [
-            'nama' => $nama,
-            'tim_id' => $tim_id,
-            'negara' => $negara,
-            'poinMusim' => $poinMusim,
-            'jumlahMenang' => $jumlahMenang
-        ];
-        $this->tabelPembalap->addData($nama, $data);
+    public function tambahData($data = []): void {
+        $this->tabelPembalap->addData($data);
     }
     
-    public function ubahData($id, $nama, $tim_id, $negara, $poinMusim, $jumlahMenang): void {
-        $data = [
-            'nama' => $nama,
-            'tim_id' => $tim_id,
-            'negara' => $negara,
-            'poinMusim' => $poinMusim,
-            'jumlahMenang' => $jumlahMenang
-        ];
+    public function ubahData($id, $data = []): void {
         $this->tabelPembalap->updateData($id, $data);
     }
     

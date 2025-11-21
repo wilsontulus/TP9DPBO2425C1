@@ -45,10 +45,24 @@ else if(isset($_POST['action'])){
     // Execute CRUD actions
     switch ($_POST['action']) {
         case "add":
-            $presenter->tambahData($_POST['nama'], $_POST['tim_id'], $_POST['negara'], $_POST['poinMusim'], $_POST['jumlahMenang']);
+            $data = [
+                'nama' => $_POST['nama'],
+                'tim_id' => $_POST['tim_id'],
+                'negara' => $_POST['negara'],
+                'poinMusim' => $_POST['poinMusim'],
+                'jumlahMenang' => $_POST['jumlahMenang']
+            ];
+            $presenter->tambahData($data);
             break;
         case "edit":
-            $presenter->ubahData($_POST['id'], $_POST['nama'], $_POST['tim_id'], $_POST['negara'], $_POST['poinMusim'], $_POST['jumlahMenang']);
+            $data = [
+                'nama' => $_POST['nama'],
+                'tim_id' => $_POST['tim_id'],
+                'negara' => $_POST['negara'],
+                'poinMusim' => $_POST['poinMusim'],
+                'jumlahMenang' => $_POST['jumlahMenang']
+            ];
+            $presenter->ubahData($_POST['id'], $data);
             break;
         case "delete":
             $presenter->hapusData($_POST['id']);
